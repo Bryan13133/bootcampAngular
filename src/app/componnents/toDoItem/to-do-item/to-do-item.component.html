@@ -1,0 +1,24 @@
+<div class="card-body" [id]="todoItem.id">
+  <h6 class="card-title" [ngStyle]="isChecked && {'text-decoration': 'line-through'}">{{todoItem.name}}</h6>
+  <div class="row">
+    <div class="col-md-12">
+      <p [ngStyle]="isChecked && {'text-decoration': 'line-through'}">{{todoItem.task}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <input type="checkbox" [checked]="isChecked" (change)="isChecked = !isChecked"> Click on it to confirm delete
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2" style="padding-top: 2%;">
+      <button type="button" class="btn btn-danger btn-sm"(click)="removeItem(todoItem)">Delete</button>
+
+    </div>
+    <div class="col-md-2"style="padding-top: 2%;">
+      <button type="button" class="btn btn-warning btn-sm"(click)="sendItem(todoItem)"style="display: inline-block;">Edit</button>
+    </div>
+  </div>
+</div>
+
+

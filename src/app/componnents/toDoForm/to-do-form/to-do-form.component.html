@@ -1,0 +1,27 @@
+<form [formGroup]="form" novalidate>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <label>Name </label>
+          <input type="text" formControlName="name" placeholder="Todo name" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label >Task</label>
+          <textarea class="form-control" rows="3" formControlName="task"></textarea>
+        </div>
+      </div>
+      <div class="row " style="padding-top: 2%;">
+        <div class="col-md-1" style="padding-top: 2%;">
+          <button type="button" class="btn btn-success btn-sm" (click)="addNewTask(form)">Save</button>
+        </div>
+        <div class="col-md-1" style="padding-top: 2%;margin-left: 2%;" >
+          <button type="button" class="btn btn-primary btn-sm" (click)="editTask()" style="display: inline-block;">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
