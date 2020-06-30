@@ -1,0 +1,38 @@
+<form  [formGroup]="form" novalidate style="margin-top: 50%;">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">
+        <h5> Login</h5>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="email">Email </label>
+          <input type="email" formControlName="email" placeholder="Enter your email" class="form-control" id="email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="password">Password</label>
+          <input type="password" formControlName="password" placeholder="Enter your password" class="form-control" id="password">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="#" >Forgot password?</a>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 2%;">
+        <div class="col-12">
+          <button type="button" class="btn btn-primary btn-sm btn-block" (click)="validateUser(form)">Login</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p>Don't have an account?  <a href="#" routerLink="/signup" >REGISTER HERE!</a> </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MainServiceService } from 'src/app/services/main-service.service';
-import { NgModel, FormGroup, FormBuilder, Validators, EmailValidator, FormControl } from '@angular/forms';
+import { NgModel, FormGroup, FormBuilder, Validators, EmailValidator, FormControl, AbstractControl } from '@angular/forms';
 import { Todo } from 'src/app/interfaces/todo';
+import {taskValidator, nameValidator, emailValidator} from '../../../utilities/validators';
 
 @Component({
   selector: 'app-to-do-form',
@@ -32,15 +33,14 @@ export class ToDoFormComponent implements OnInit {
   createForm(){
     return this.fb.group({
       name: '',
-      task: ['', [Validators.maxLength(20), Validators.required]],
-      email: ['']
-
+      task: '',
     }, {
-      validators: emailValidator
+      validators: nameValidator, taskValidator
     });
   }
 
   addNewTask( {valid, value}: {valid: boolean, value: string}){
+    console.log(valid);
     if (valid) {
       if (!this.isEditable){
         const todo = new Todo(value);
@@ -55,15 +55,12 @@ export class ToDoFormComponent implements OnInit {
     this.form.reset();
   }
 
-}
-function nameVlidator(){
+  get task(): AbstractControl{
+    return this.form.get('task');
+  }
 
-}
-
-function emailValidator(control: FormControl){
-const {value} = control;
-const EMAIL_REGEX  = new RegExp('^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$');
-return EMAIL_REGEX.test(value) ? null :  {
-  emailVlid: false
-};
+  get name(): AbstractControl{
+    console.log(this.form.get('name'));
+    return this.form.get('name');
+  }
 }

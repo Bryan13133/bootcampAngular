@@ -6,18 +6,23 @@ import { ToDoContainerComponent } from './componnents//toDoContainer/to-do-conta
 import { ToDoItemComponent } from './componnents//toDoItem/to-do-item/to-do-item.component';
 import { ToDoFormComponent } from './componnents/toDoForm/to-do-form/to-do-form.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { LoginComponent } from './componnents/loginComponent/login/login.component';
+import { SignupComponent } from './componnents/signupComponent/signup/signup.component';
+import {RouteModule} from './route/route.module';
 @NgModule({
   declarations: [
     AppComponent,
     ToDoContainerComponent,
     ToDoItemComponent,
-    ToDoFormComponent
+    ToDoFormComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    RouteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

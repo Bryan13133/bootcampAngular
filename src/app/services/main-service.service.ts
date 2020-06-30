@@ -6,8 +6,11 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class MainServiceService {
+private email = 'bryanvilla9@mail.com';
+private password = 'qwerty12345';
 private todoList: Todo[];
 private todoItem = new Subject<Todo>();
+private invalid: boolean;
 currentItem = this.todoItem.asObservable();
 lastId: number;
   constructor() { }
@@ -49,7 +52,13 @@ lastId: number;
     this.todoItem.next(todoItem);
   }
 
-
+  validateUser(email: string, password: string){
+    if (email === this.email && password === this.password) {
+      return this.invalid = true;
+    }else{
+      return this.invalid = false;
+    }
+  }
 
 
 }
