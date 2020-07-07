@@ -8,7 +8,7 @@ import { ToDoFormComponent } from './componnents/toDoForm/to-do-form/to-do-form.
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './componnents/loginComponent/login/login.component';
 import { SignupComponent } from './componnents/signupComponent/signup/signup.component';
-import {RouteModule} from './route/route.module';
+import {RouteModule} from './route.module';
 @NgModule({
   declarations: [
     AppComponent,

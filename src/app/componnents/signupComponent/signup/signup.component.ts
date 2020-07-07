@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModel, FormGroup, FormBuilder, Validators, EmailValidator, FormControl } from '@angular/forms';
+import { NgModel, FormGroup, FormBuilder, Validators, EmailValidator, FormControl, AbstractControl } from '@angular/forms';
 import { MainServiceService } from 'src/app/services/main-service.service';
+import { LoginServiceService } from 'src/app/services/login/login-service.service';
+import {emailValidator, passwordMatch} from 'src/app/utilities/validators';
+import { errors } from 'src/app/utilities/errorsMsg';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -10,7 +13,8 @@ export class SignupComponent implements OnInit {
   form: FormGroup;
   constructor(
     private mainService: MainServiceService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private loginService: LoginServiceService
 
   ) { }
 
@@ -20,32 +24,39 @@ export class SignupComponent implements OnInit {
 
   createForm(){
     return this.fb.group({
-      name: '',
-      lastName: '',
-      password: '',
-      phoneNumber: '',
-      birthDate: '',
-      termsAndConditions: '',
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      termsAndConditions: ['', [Validators.required]],
 
     }, {
-      validators: emailValidator, passwordValidator
+      validators: emailValidator, passwordMatch
     }
     );
   }
-
-}
-
-function emailValidator(control: FormControl){
-  const {value} = control;
-  const EMAIL_REGEX  = new RegExp('^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$');
-  return EMAIL_REGEX.test(value) ? null :  {
-    emailVlid: false
-};
+  get email(): AbstractControl {
+    return this.form.get('email');
   }
 
+  getErrorMessage(control: AbstractControl): string | null {
+    for (const propertyErrorName in control.errors) {
+      if (control.errors.hasOwnProperty(propertyErrorName)) {
+        return errors[propertyErrorName];
+      }
+    }
+    return null;
+  }
 
-function passwordValidator(control: FormControl){
-const {value} = control;
-
+onsubmit({valid, value}: {valid: boolean, value: any}){
+  if(valid){
+    this.loginService.createUser(value);
+  }
+}
 
 }
+
+
+
+

@@ -26,4 +26,13 @@ return EMAIL_REGEX.test(value) ? null :  {
 };
 }
 
-export {taskValidator, nameValidator, emailValidator};
+function passwordMatch(form: FormGroup): { notequal: boolean } | null {
+  const password = form.get('password').value;
+  const confirmPassword = form.get('confirmPassword').value;
+
+  return password === confirmPassword ? null : {
+    notequal: true
+  };
+}
+
+export {taskValidator, nameValidator, emailValidator, passwordMatch};
