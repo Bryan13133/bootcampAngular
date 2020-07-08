@@ -8,7 +8,8 @@ export class LoginServiceService {
   _isAuthenticated: boolean;
   users: User[] = [
     {
-      name: 'Javier Ruiz',
+      name: 'Javier ',
+      lastName: 'Ruiz',
       email: 'java.rv87@gmail.com',
       password: '123',
       phoneNumber: '6141234567',
