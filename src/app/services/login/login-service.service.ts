@@ -1,5 +1,6 @@
 import { User } from './../../interfaces/user';
 import { Injectable } from '@angular/core';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class LoginServiceService {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private databaseService: DatabaseService
+    ) { }
 
   get isAuthenticated() {
     return this._isAuthenticated;
@@ -38,7 +41,9 @@ export class LoginServiceService {
     const userExists = this.getUser(user).length;
 
     if (user.email !== 'alex@gmail.com' && !userExists) {
-      this.users.push(user);
+      const r = this.databaseService.createUser(user);
+      console.log('***** ' + r);
+
       result = {
         success: 'User created successfully!'
       };

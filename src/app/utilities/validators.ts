@@ -19,9 +19,9 @@ function nameValidator(control: FormControl): {lengthNameValid: boolean} | null{
 
 function emailValidator(control: FormControl){
 const {value} = control;
-const EMAIL_REGEX  = new RegExp('^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$');
+const EMAIL_REGEX  = new RegExp('^[a-z0-9%_.+-]+@[a-z0-9.-]+\.[a-z]{2,4}$');
 return EMAIL_REGEX.test(value) ? null :  {
-  emailVlid: false
+  emailInvalid: true
 };
 }
 

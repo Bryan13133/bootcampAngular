@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './componnents/loginComponent/login/login.component';
 import { SignupComponent } from './componnents/signupComponent/signup/signup.component';
 import {RouteModule} from './route.module';
+import {DatabaseService} from './services/database/database.service';
+import {HttpClientModule} from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,9 +24,12 @@ import {RouteModule} from './route.module';
     BrowserModule,
     ReactiveFormsModule,
     NgbModule,
-    RouteModule
+    RouteModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    DatabaseService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

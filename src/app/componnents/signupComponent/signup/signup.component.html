@@ -39,7 +39,7 @@
   <div class="form-group">
     <label for="email">Email:</label>
     <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
-    <small id="emailHelp" class="form-text text-muted" *ngIf="email.errors?.emailInvalid && (email.dirty || email.touched)">Invalid email</small>
+    <small id="emailHelp"  *ngIf="email.errors?.emailInvalid && (email.dirty || email.touched)" style="color: red;font-weight: bold;">*Invalid email*</small>
   </div>
   <div class="form-group">
     <label for="password">Password</label>
@@ -92,7 +92,7 @@
         </button>
       </div>
     </div>
-    <small id="passMatchHelp" class="form-text text-muted" *ngIf="form.errors?.notequal">Password not match</small>
+    <small id="passMatchHelp"  *ngIf="form.errors?.notequal"style="color: red;font-weight: bold;">*Password not match*</small>
   </div>
     </div>
     <div class="row" style="padding-top: 0%;padding-bottom: 2%;">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgModel, FormGroup, FormBuilder, Validators, EmailValidator, FormControl } from '@angular/forms';
 import { MainServiceService } from 'src/app/services/main-service.service';
 import {emailValidator} from 'src/app/utilities/validators';
+import { DatabaseService } from 'src/app/services/database/database.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   constructor(
     private mainService: MainServiceService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private databaseService: DatabaseService
   ) { }
 
   ngOnInit(): void {

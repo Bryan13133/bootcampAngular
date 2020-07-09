@@ -6,6 +6,7 @@ import {emailValidator, passwordMatch} from 'src/app/utilities/validators';
 import { errors } from 'src/app/utilities/errorsMsg';
 import { User } from 'src/app/interfaces/user';
 import { Router } from '@angular/router';
+import { DatabaseService } from 'src/app/services/database/database.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -20,12 +21,17 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private mainService: MainServiceService,
     private fb: FormBuilder,
-    private loginService: LoginServiceService
-
+    private loginService: LoginServiceService,
+    private databaseService: DatabaseService
   ) { }
 
   ngOnInit(): void {
     this.form = this.createForm();
+    const users = this.databaseService.getUsers().subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+
   }
 
   canDeactivate() {
@@ -52,6 +58,7 @@ export class SignupComponent implements OnInit {
   }
 
   get email(): AbstractControl {
+    console.log(this.form.get('email'));
     return this.form.get('email');
   }
 
@@ -65,11 +72,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit({ valid, value }: { valid: boolean, value: User }) {
-    console.log(value);
-    console.log(valid);
     if (valid) {
       const data = this.loginService.createUser(value);
-      console.log(data);
       this.router.navigate(['login'], {
         queryParams: data
       });
