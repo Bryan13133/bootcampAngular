@@ -1,4 +1,10 @@
-<form  [formGroup]="form" novalidate >
+<div *ngIf="success" class="alert alert-success" role="alert">
+  {{success}}
+</div>
+<div *ngIf="error" class="alert alert-danger" role="alert">
+  {{error}}
+</div>
+<form  [formGroup]="form" novalidate (submit)="onSubmit(form)" >
   <div class="card">
     <div class="card-body">
       <div class="card-title">
@@ -23,7 +29,7 @@
       </div>
       <div class="row" style="padding-top: 2%;">
         <div class="col-12">
-          <button type="button" class="btn btn-primary btn-sm btn-block" (click)="validateUser(form)">Login</button>
+          <button type="submit" class="btn btn-primary btn-sm btn-block" [disabled]="form.invalid">Login</button>
         </div>
       </div>
       <div class="row">

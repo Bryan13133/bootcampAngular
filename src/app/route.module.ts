@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './componnents/loginComponent/login/login.component';
 import { SignupComponent } from './componnents/signupComponent/signup/signup.component';
+import { ToDoContainerComponent } from './componnents/toDoContainer/to-do-container/to-do-container.component';
+import { AuthGuard } from './guards/auth.guard';
+import { CanDeactivateSignupGuard } from './guards/can-deactivate-signup.guard';
 
 const  routes: Routes = [
   {
@@ -16,7 +19,13 @@ const  routes: Routes = [
   },
   {
     path: 'signup',
-     component: SignupComponent
+     component: SignupComponent,
+     canDeactivate: [CanDeactivateSignupGuard]
+  },
+  {
+    path: 'todoList',
+    component: ToDoContainerComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

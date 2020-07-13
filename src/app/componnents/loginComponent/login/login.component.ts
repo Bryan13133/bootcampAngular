@@ -3,6 +3,9 @@ import { NgModel, FormGroup, FormBuilder, Validators, EmailValidator, FormContro
 import { MainServiceService } from 'src/app/services/main-service.service';
 import {emailValidator} from 'src/app/utilities/validators';
 import { DatabaseService } from 'src/app/services/database/database.service';
+import { LoginServiceService } from 'src/app/services/login/login-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +14,21 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
+  error: string;
+  success: string;
   constructor(
     private mainService: MainServiceService,
     private fb: FormBuilder,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private loginService: LoginServiceService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.error = this.route.snapshot.queryParamMap.get('error');
+    this.success = this.route.snapshot.queryParamMap.get('success');
+    this.form = this.createForm();
     this.form = this.createForm();
   }
 
@@ -28,12 +39,23 @@ export class LoginComponent implements OnInit {
   }
   createForm(){
     return this.fb.group({
-      email: '',
-      password: ''
+      email: ['', [emailValidator, Validators.required]],
+      password: ['', [ Validators.required]]
     }, {
       validators: emailValidator
     }
     );
+  }
+
+  onSubmit({ valid, value }: { valid: boolean, value: User }) {
+    if (valid) {
+      const user = this.loginService.getUser(value);
+      this.loginService.isAuthenticated = !!user.length;
+
+      if (user.length) {
+        this.router.navigate(['todolist']);
+      }
+    }
   }
 
 
