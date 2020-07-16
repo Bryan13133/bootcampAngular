@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/interfaces/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,18 @@ export class DatabaseService {
   constructor( private http: HttpClient) { }
 
   getUsers(){
-    console.log(this.http.get(`${this.API_URI}/users`));
-    return this.http.get(`${this.API_URI}/users`);
+    return this.http.get<User[]>(`${this.API_URI}/users`);
   }
   createUser(user: User){
-    console.log(JSON.stringify(user));
-    return this.http.post<any>(`${this.API_URI}/newUser`, user);
+    let result;
+    const headers = new HttpHeaders()
+          .set('Authorization', 'my-auth-token')
+          .set('Content-Type', 'application/json');
+    let resultRequest = this.http.post<User>(`${this.API_URI}/newUser`, user);
+    resultRequest.subscribe(data =>{
+     result = data;
+     console.log(result);
+     return result;
+    });
   }
 }

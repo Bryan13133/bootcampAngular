@@ -1,6 +1,7 @@
 import { User } from './../../interfaces/user';
 import { Injectable } from '@angular/core';
 import { DatabaseService } from '../database/database.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,17 +37,23 @@ export class LoginServiceService {
     return this.users.filter((data) => data.email === user.email);
   }
 
-  createUser(user: User) {
+  createUser(user: User): Observable<User> {
     let result;
     const userExists = this.getUser(user).length;
 
     if (user.email !== 'alex@gmail.com' && !userExists) {
-      const r = this.databaseService.createUser(user);
-      console.log('***** ' + r);
-
-      result = {
-        success: 'User created successfully!'
-      };
+    let r = this.databaseService.createUser(user);
+   console.log(r);
+      // if (r) {
+      //   result = {
+      //     success: 'User created successfully!'
+      //   };
+      // }else{
+      //   result = {
+      //     success: 'There was a problem, try again!'
+      //   };
+      // }
+     
     } else {
       const msg = (userExists) ? 'User already exists!' : 'User can not be created!';
       result = { error: msg };

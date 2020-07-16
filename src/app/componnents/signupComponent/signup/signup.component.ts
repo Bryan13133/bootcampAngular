@@ -74,9 +74,9 @@ export class SignupComponent implements OnInit {
   onSubmit({ valid, value }: { valid: boolean, value: User }) {
     if (valid) {
       const data = this.loginService.createUser(value);
-      this.router.navigate(['login'], {
-        queryParams: data
-      });
+      // this.router.navigate(['login'], {
+      //   queryParams: data
+      // });
     }
   }
 }
