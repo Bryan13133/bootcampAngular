@@ -14,16 +14,11 @@ export class DatabaseService {
   getUsers(){
     return this.http.get<User[]>(`${this.API_URI}/users`);
   }
-  createUser(user: User){
-    let result;
+  createUser(user: User): Observable<User>{
     const headers = new HttpHeaders()
           .set('Authorization', 'my-auth-token')
           .set('Content-Type', 'application/json');
-    let resultRequest = this.http.post<User>(`${this.API_URI}/newUser`, user);
-    resultRequest.subscribe(data =>{
-     result = data;
-     console.log(result);
-     return result;
-    });
+
+     return this.http.post<User>(`${this.API_URI}/newUser`, user);
   }
 }

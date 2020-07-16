@@ -40,25 +40,12 @@ export class LoginServiceService {
   createUser(user: User): Observable<User> {
     let result;
     const userExists = this.getUser(user).length;
-
     if (user.email !== 'alex@gmail.com' && !userExists) {
-    let r = this.databaseService.createUser(user);
-   console.log(r);
-      // if (r) {
-      //   result = {
-      //     success: 'User created successfully!'
-      //   };
-      // }else{
-      //   result = {
-      //     success: 'There was a problem, try again!'
-      //   };
-      // }
-     
+      return this.databaseService.createUser(user);
     } else {
       const msg = (userExists) ? 'User already exists!' : 'User can not be created!';
       result = { error: msg };
     }
-
     return result;
   }
 }

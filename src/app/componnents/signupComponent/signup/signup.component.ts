@@ -72,11 +72,24 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit({ valid, value }: { valid: boolean, value: User }) {
+    let result;
     if (valid) {
-      const data = this.loginService.createUser(value);
-      // this.router.navigate(['login'], {
-      //   queryParams: data
-      // });
+      this.loginService.createUser(value).subscribe(data=>{
+          if (data) {
+            result = {
+              success: 'User created successfully!'
+            };
+          }else{
+            result = {
+              error: 'There was a problem, try again!'
+            };
+          }
+          console.log(result);
+      this.router.navigate(['login'], {
+        queryParams: data
+      });
+      });
+     
     }
   }
 }
